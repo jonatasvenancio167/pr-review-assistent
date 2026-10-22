@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 
-from app.domain.severity import Severity
+from app.domain.enum.severity import Severity
 
 @dataclass
 class ReviewFinding:
