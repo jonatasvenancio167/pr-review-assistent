@@ -22,7 +22,7 @@ class CodeAnalysisService:
 
         return HunkHeader(
             old_start=int(match.group("old_start")),
-            old_count=int(match.group("old_start") or "1"),
+            old_count=int(match.group("old_count") or "1"),
             new_start=int(match.group("new_start")),
             new_count=int(match.group("new_count") or "1")
         )
