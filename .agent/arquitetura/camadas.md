@@ -6,7 +6,7 @@ A arquitetura será organizada em camadas, utilizando Service Objects para encap
 
 ## Arquitetura proposta
 
-Diagrama da arquitetura proposta: pendente de definição.
+![Diagrama da arquitetura proposta](../../assets/mermaid-diagram.png)
 
 ## Responsabilidade de cada camada
 

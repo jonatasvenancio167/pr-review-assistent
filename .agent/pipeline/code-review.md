@@ -6,6 +6,8 @@ Essa é uma das partes mais importantes da especificação.
 
 O pipeline deve seguir uma sequência previsível de processamento
 
+![Pipeline de Code Review](../../assets/pipeline.png)
+
 ## Estado atual da implementação
 
 O `CodeAnalysisService.analyze` interpreta um único bloco iniciado por
