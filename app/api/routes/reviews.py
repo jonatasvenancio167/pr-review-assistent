@@ -1,8 +1,19 @@
-from fastapi import FastAPI, APIRouter
+from typing import Annotated
 
-app = FastAPI()
-router = APIRouter()
+from fastapi import APIRouter, Depends
 
-@router.get("/", tags=[""])
-async def read():
-    pass
+from app.api.schemas.review_schema import ReviewRequest
+from app.services.review_orchestrator import ReviewOrchestrator
+from app.api.dependencies import get_review_orchestrator
+
+router = APIRouter(prefix="/reviews", tags=["reviews"])
+
+@router.post("")
+async def create_review(
+    request: ReviewRequest,
+    orchestrator: Annotated[
+        ReviewOrchestrator,
+        Depends(get_review_orchestrator),
+    ],
+):
+    return await orchestrator.execute(request.diff)
