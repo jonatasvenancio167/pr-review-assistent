@@ -6,6 +6,18 @@ Essa é uma das partes mais importantes da especificação.
 
 O pipeline deve seguir uma sequência previsível de processamento
 
+## Estado atual da implementação
+
+O `CodeAnalysisService.analyze` interpreta um único bloco iniciado por
+`@@`, identifica adições e remoções e preserva seus números de linha.
+A contagem declarada no cabeçalho é validada ao final do bloco; o
+marcador `\ No newline at end of file` é ignorado. Entradas vazias,
+prefixos inválidos, contagens incompatíveis e múltiplos blocos são
+rejeitados com `ValueError`.
+
+O suporte a diffs completos com cabeçalhos de arquivos e múltiplos
+blocos ainda está pendente. As etapas abaixo descrevem o fluxo-alvo.
+
 ## Etapa 1 - recebimento
 
 O desenvolvedor envia uma requisição contendo:

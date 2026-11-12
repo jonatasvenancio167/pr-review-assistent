@@ -16,6 +16,13 @@ A cada desenvolvimento ou alteração de uma feature, revise e atualize este `AG
 
 A atualização da documentação faz parte da entrega da feature e deve ser concluída junto com a implementação. Remova ou corrija informações desatualizadas e mantenha os links válidos.
 
+## Estado atual do desenvolvimento
+
+O parser interpreta um único bloco de diff, com adições, remoções e
+validação das contagens do cabeçalho. Consulte o [pipeline de Code
+Review](.agent/pipeline/code-review.md) para os limites atuais e o fluxo
+previsto para o MVP.
+
 ## Índice por tópico
 
 | Documento | Conteúdo |
