@@ -18,6 +18,13 @@ A atualização da documentação faz parte da entrega da feature e deve ser con
 
 ## Estado atual do desenvolvimento
 
+A API disponibiliza healthchecks e documentação HTTP. A rota
+`POST /reviews` está temporariamente desativada (HTTP 404 e ausente do
+OpenAPI), pois seus serviços ainda não estão implementados. Seus arquivos
+estão preservados para evolução posterior. O teste de inicialização executa
+Uvicorn sem exigir PostgreSQL; readiness continua dependendo de PostgreSQL
+com pgvector.
+
 O parser interpreta um único bloco de diff, com adições, remoções e
 validação das contagens do cabeçalho. Consulte o [pipeline de Code
 Review](.agent/pipeline/code-review.md) para os limites atuais e o fluxo

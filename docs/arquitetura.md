@@ -15,15 +15,15 @@ O desenvolvimento será incremental, em pair programming, priorizando compreens�
 | Área | Implementado no repositório | Próxima evolução |
 | --- | --- | --- |
 | Infraestrutura | Docker, Compose base e de desenvolvimento, Python 3.12 e PostgreSQL 17 com pgvector | Adequar a configuração ao ambiente de implantação |
-| API | FastAPI com liveness e readiness | Criar a rota de reviews e seus schemas |
+| API | FastAPI com liveness, readiness e documentação HTTP; rota e schema de reviews escritos, com registro da rota desativado | Implementar os colaboradores do fluxo antes de habilitar reviews |
 | Banco | Engine e sessões assíncronas com SQLAlchemy 2 e asyncpg | Introduzir repositórios e modelos do negócio |
 | Migrações | Alembic assíncrono e revisão `0001`, que habilita `vector` e cria `documents` | Criar tabelas de conhecimento e reviews conforme os contratos |
 | Domínio | `Severity` e estrutura inicial da dataclass `ReviewFinding` | Validar apontamentos e definir `CodeReview` |
 | RAG e LLM | Ainda não implementados | Ingestão, embeddings, recuperação e geração estruturada |
-| Testes | `tests/smoke.py`, com HTTP e operações vetoriais pelo ORM | Testes unitários, de integração e avaliação |
+| Testes | Testes unitários de domínio e parser, regressão de inicialização HTTP sem banco e `tests/smoke.py` com operações vetoriais pelo ORM | Ampliar testes do fluxo de review e avaliação |
 | GitHub | Ainda não implementado | Integração após estabilizar o fluxo REST |
 
-Atualmente não existem `POST /reviews`, execução de LLM ou geração de embeddings. A tabela `documents` é um exemplo de infraestrutura com vetores de três dimensões, não o modelo definitivo da base de conhecimento.
+`POST /reviews` está temporariamente desativado: retorna HTTP 404 e não aparece no OpenAPI. Seus arquivos permanecem no repositório, mas não são importados pela inicialização da aplicação, pois dependem de serviços ainda não implementados. Não há execução de LLM ou geração de embeddings. A tabela `documents` é um exemplo de infraestrutura com vetores de três dimensões, não o modelo definitivo da base de conhecimento.
 
 ## 3. Organização e dependências
 
@@ -266,6 +266,8 @@ Limites de tamanho do diff, número de chunks, tempo de execução e saída do m
 | Avaliação | Relevância da recuperação, correção dos apontamentos, referências e falsos positivos | Casos de review e documentos com resultados esperados |
 
 O teste existente `tests/smoke.py` cobre healthchecks, documentação HTTP, revisão `0001`, inserção/leitura vetorial e distância L2 pelo ORM. Ele não valida a qualidade de um review ou de uma recuperação RAG e sua expectativa de revisão precisará evoluir quando houver novas migrações.
+
+O teste `tests/unit/test_api_startup.py` inicia Uvicorn em subprocesso com configuração de teste, sem exigir PostgreSQL. Verifica liveness, documentação HTTP, ausência de reviews no OpenAPI e HTTP 404 para `POST /reviews`, encerrando o subprocesso mesmo em caso de falha. Readiness permanece dependente do banco e da extensão e é validado pelo smoke test no ambiente de integração.
 
 Testes unitários deverão acompanhar os contratos de domínio e serviços. Avaliações com LLM devem ser tratadas separadamente dos testes determinísticos, registrando modelo, configuração e corpus utilizados.
 

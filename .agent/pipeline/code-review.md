@@ -10,6 +10,13 @@ O pipeline deve seguir uma sequência previsível de processamento
 
 ## Estado atual da implementação
 
+A rota `POST /reviews` está temporariamente desativada: retorna HTTP 404 e
+não aparece no OpenAPI. Os arquivos da rota, schema e orquestrador estão
+preservados, mas os serviços necessários ao fluxo ainda não foram
+implementados. A aplicação inicia sem importá-los e disponibiliza
+healthchecks e documentação HTTP. Liveness não depende do banco;
+readiness verifica PostgreSQL e pgvector.
+
 O `CodeAnalysisService.analyze` interpreta um único bloco iniciado por
 `@@`, identifica adições e remoções e preserva seus números de linha.
 A contagem declarada no cabeçalho é validada ao final do bloco; o

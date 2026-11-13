@@ -4,6 +4,21 @@
 
 Não podemos avaliar o projeto apenas pela quantidade de testes automatizados.
 
+## Cobertura atual
+
+Há testes unitários para `CodeReview` e parsing de um único bloco de diff.
+O teste de inicialização HTTP inicia Uvicorn em subprocesso com configuração
+de teste, sem exigir banco, verifica liveness e documentação e confirma que
+`POST /reviews` está desativado (HTTP 404 e ausente do OpenAPI). O processo
+é encerrado mesmo em caso de falha. Execute esses testes com
+`python -m unittest discover -s tests/unit -v`.
+
+O script `tests/smoke.py` depende do ambiente Docker ativo e verifica
+readiness, PostgreSQL, pgvector e migração. O fluxo completo de revisão e
+as avaliações de RAG e LLM continuam pendentes.
+
+## Estratégia prevista
+
 Precisamos avaliar também a qualidade das revisões geradas pela IA.
 
 Testes unitários

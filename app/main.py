@@ -10,8 +10,6 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.config import get_settings
 from app.database import engine, get_session
 
-from app.api.routes.reviews import router as reviews_router
-
 logger = logging.getLogger(__name__)
 
 
@@ -22,8 +20,6 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title=get_settings().app_name, lifespan=lifespan)
-
-app.includes_router(reviews_router)
 
 @app.get("/health/live", tags=["health"])
 async def live() -> dict[str, str]:

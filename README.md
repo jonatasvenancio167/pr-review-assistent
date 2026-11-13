@@ -81,6 +81,20 @@ documents = (await session.scalars(statement)).all()
 
 ## Validação
 
+Com as dependências instaladas em um ambiente Python 3.12, execute na raiz:
+
+```bash
+python -m unittest discover -s tests/unit -v
+```
+
+Além dos testes de domínio e parser, esse comando executa o teste de
+inicialização HTTP em um subprocesso Uvicorn, com configuração de teste e
+porta local dinâmica, sem exigir PostgreSQL. Ele verifica `/health/live`,
+`/docs`, `/openapi.json` e a desativação temporária de `POST /reviews`
+(HTTP 404 e ausente do OpenAPI). Os arquivos de reviews estão preservados
+para implementação posterior. `/health/ready` continua verificando
+PostgreSQL e pgvector e depende do ambiente de integração abaixo.
+
 Com o ambiente ativo:
 
 ```bash
